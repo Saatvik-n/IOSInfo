@@ -261,11 +261,14 @@ class ViewController: UIViewController {
         
         defaults1 = UserDefaults.standard
         
+        // On load, retrieve saved defaults
         username.text = defaults1.string(forKey: "name")
         passwor.text = defaults1.string(forKey: "password")
 
     }
 
+    // Called when button is clicked
+    // Save key value pairs for username, password
     @IBAction func saveInfo(_ sender: UIButton) {
         defaults1.setValue(username.text, forKey: "name")
         defaults1.setValue(passwor.text, forKey: "password")
