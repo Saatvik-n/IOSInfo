@@ -254,8 +254,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var passwor: UITextField!
     @IBOutlet weak var button: UIButton!
-    
     var defaults1: UserDefaults!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
