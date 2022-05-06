@@ -133,6 +133,43 @@ class ViewController: UIViewController {
 }
 ```
 
+### Segmented control assignment
+
+Two segmented controls - one bangalore, one chennai.
+Each one should change image and label.
+
+```swift
+class ViewController: UIViewController {
+
+    @IBOutlet weak var iv1: UIImageView!
+    @IBOutlet weak var sc1: UISegmentedControl!
+    
+    @IBOutlet weak var label1: UILabel!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Default is bangalore image and label
+        iv1.image = UIImage(named: "bangalore.jpg")
+        label1.text = "Bangalore"
+    }
+
+
+    // Change image, label on segmented controller click
+    @IBAction func onSegClick(_ sender: UISegmentedControl) {
+        let page = sc1.selectedSegmentIndex
+        if page == 0 {
+            iv1.image = UIImage(named: "bangalore.jpg")
+            label1.text = "Bangalore"
+        } else if page == 1 {
+            iv1.image = UIImage(named: "chennai.jpg")
+            label1.text = "Chennai"
+        }
+    }
+}
+```
+
 ## Page Control 
 
 Page control is represented by dots. It allows you to move between different pages. 
