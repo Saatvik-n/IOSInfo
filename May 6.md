@@ -185,7 +185,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     // This function is called when button is pressed, to save the value into user defaults
     @objc func saveInfo() {
-        // tf1.text is an Optional, you need to get the value
+        // tf1.text is an Optional, you need to get the value using !
         ud1.setValue(tf1.text!, forKey: "name")
         ud1.setValue(tf2.text!, forKey: "email")
         ud1.setValue(tf3.text!, forKey: "number")
