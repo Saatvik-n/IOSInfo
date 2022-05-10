@@ -34,6 +34,8 @@ After importing, 2 functions have to be overriden / implemented:
 * Number of sections 
 * Section header titles
 
+`indexPath` contains 2 variables inside it. `indexPath.row` for the row, `indexPath.section` for the section
+
 Program to make a table view with 2 sections, and 3 rows per section:
 ```swift
 import UIKit
@@ -115,7 +117,126 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
 
+}
+```
+Other functions:
+* `func tableView(_ tableView: UITableView,  heightForRowAt indexPath: IndexPath) -> CGFloat` - changes the height for
+each row. Return a `CGFloat`. 
+* `func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)` - calls this function whenever 
+a row is selected. Using `indexPath`, different actions can be taken.
+* `func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath)` - calls this function whenever 
+an accesory button (like the information button) is tapped. Using `indexPath`, different actions can be taken.
+* `func sectionIndexTitles(for tableView: UITableView) -> [String]?` - It returns an array of strings which are the titles 
+for each section. The titles appear on the right side of the table view
 
+
+## Invoking other applications 
+
+This will invoke safari, Phone, SMS on clicking the button.
+
+```swift
+import UIKit
+
+class ViewController: UIViewController {
+
+    // 3 text fields, 3 buttons
+    @IBOutlet weak var safaribtn: UIButton!
+    @IBOutlet weak var urltf: UITextField!
+    @IBOutlet weak var smstb: UIButton!
+    @IBOutlet weak var phonebtn: UIButton!
+    @IBOutlet weak var smstf: UITextField!
+    @IBOutlet weak var phonetf: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    @IBAction func onSafariClick() {
+        // For safari, the normal url in the format https://www.google.com is enough
+        if let url1 = URL(string: urltf.text!) {
+            UIApplication.shared.open(url1)
+        }
+    }
+    
+    @IBAction func onPhoneClick() {
+        // For phone, "tel" needs to be prefixed to the phone number. Won't work in simulator
+        if let url1 = URL(string: "tel://\(phonetf.text!)") {
+            UIApplication.shared.open(url1)
+        }
+    }
+    
+    @IBAction func onSMSClick() {
+        // For SMS, "sms" needs to be prefixed to the phone number. Won't work in simulator
+        if let url1 = URL(string: "sms://\(smstf.text!)") {
+            UIApplication.shared.open(url1)
+        }
+    }
+}
+
+```
+
+## Picker View 
+
+It will let you select from a list of options. UIPickerView can have multiple wheels (named components).
+In this example, components = 1.
+
+This program allows user to select a row from the picker. It will contains a city's name.
+That name will be set as the text of a label.
+```swift
+import UIKit
+
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    // Label displays the selected row
+    @IBOutlet weak var label1: UILabel!
+    @IBOutlet weak var pv1: UIPickerView!
+    
+    // The wheel will display a list of cities
+    var listOfCities: [String] = []
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        listOfCities = ["Bangalore", "delhi", "Mumbai"]
+        pv1.delegate = self
+        pv1.dataSource = self
+    }
+    
+    // Number of wheels
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1;
+    }
+    
+    // Number of rows in each component (wheel). Since there is only one component, no. of rows is constant
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return listOfCities.count;
+    }
+    
+    // Title for each row
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return listOfCities[row];
+    }
+    
+    // This function is called each time a row is selcted.
+    // It sets the label text to the selected city
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        label1.text = listOfCities[row]
+    }
+}
+```
+
+### To utilize pickerView in textField 
+
+Picker view occupies too much space. To solve this, you can bring up pickerView seperately when 
+a textField is clicked. 
+
+```swift 
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    @IBOutlet weak var tf1: UITextField!
+    var pv1: UIPickerView
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
 }
 ```
 
